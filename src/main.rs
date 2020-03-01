@@ -15,17 +15,15 @@ pub fn onesdk_shutdown() -> i32 {
 
 pub fn onesdk_customservicetracer_create(service_method: &str, service_name: &str) -> u64 {
     let mut service_name = CString::new(service_name).expect("Failed to create the string");
-    let service_ptr = service_name.as_ptr() as *mut c_void;
     let mut service: *const onesdk_string = &onesdk_string {
-        data: service_ptr,
+        data: service_name.as_ptr() as *mut c_void,
         byte_length: service_name.as_bytes().len() as u64,
         ccsid: 1209,
     };
 
     let mut service_method = CString::new(service_method).expect("Failed to create the string");
-    let method_ptr = service_method.as_ptr() as *mut c_void;
     let mut method: *const onesdk_string = &onesdk_string {
-        data: method_ptr,
+        data: service_method.as_ptr() as *mut c_void,
         byte_length: service_method.as_bytes().len() as u64,
         ccsid: 1209,
     };
